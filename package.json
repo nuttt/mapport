@@ -1,6 +1,6 @@
 {
   "name": "mapport",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Simple TCP Proxy tool for command line",
   "main": "index.js",
   "scripts": {
