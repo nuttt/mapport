@@ -5,9 +5,12 @@ var net = require('net');
 var portRegex = /^(\d+)$/
 var addrRegex = /^(?:([A-Za-z0-9\.\-]+):)?(\d+)$/
 
-var errorHandler = function(e) {
-  console.log(e);
-  process.exit(1);
+var errorHandler = function(text) {
+  return function(e) {
+    console.log("mapport: " + text);
+    console.log(e);
+    process.exit(1);
+  }
 }
 
 var destinationAddr = process.argv.pop()
@@ -27,13 +30,13 @@ var server = net.createServer(function(sourceConn){
     port: destinationPort
   });
 
-  destinationConn.on("error", errorHandler);
+  sourceConn.on("error", errorHandler("Source Connection Error"));
+  destinationConn.on("error", errorHandler("Destination Connection Error"));
 
   sourceConn.pipe(destinationConn);
   destinationConn.pipe(sourceConn);
 });
 
-server.on("error", errorHandler);
 server.listen(sourcePort, function(){
-  console.log("Mapping " + sourcePort + " ➜ " + destinationHost + ":" + destinationPort);
+  console.log("Mapping " + sourcePort + " �~^~\ " + destinationHost + ":" + destinationPort);
 });
