@@ -1,0 +1,27 @@
+{
+  "name": "mapport",
+  "version": "1.0.1",
+  "description": "Simple TCP Proxy tool for command line",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "mapport": "index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nuttt/mapport.git"
+  },
+  "keywords": [
+    "tcp",
+    "proxy",
+    "port"
+  ],
+  "author": "Nuttapon Pattanavijit",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nuttt/mapport/issues"
+  },
+  "homepage": "https://github.com/nuttt/mapport#readme"
+}
