@@ -27,10 +27,6 @@ if (cluster.isMaster) {
     }
   }
 
-  setTimeout(function(){
-    process.exit(1);
-  }, 1000);
-
   var destinationAddr = process.argv.pop()
   var sourcePort = process.argv.pop()
 
