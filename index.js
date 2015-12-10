@@ -3,6 +3,7 @@
 var net = require('net');
 var cluster = require('cluster');
 
+// master process
 if (cluster.isMaster) {
   cluster.fork();
   process.on('SIGTERM', function(){
@@ -10,11 +11,13 @@ if (cluster.isMaster) {
   });
 
   cluster.on('exit', function(worker, code, signal) {
-    console.log("worker " + worker.id + ": exit (code=exited, status=" + code + ")");
     if(code != 0){
-      cluster.fork();
+      console.log("worker " + worker.id + ": exit (code=exited, status=" + code + ")");
+      cluster.fork()
     }
   });
+
+// main task
 } else {
   var portRegex = /^(\d+)$/
   var addrRegex = /^(?:([A-Za-z0-9\.\-]+):)?(\d+)$/
@@ -22,6 +25,7 @@ if (cluster.isMaster) {
   var errorHandler = function(text) {
     return function(e) {
       console.log("mapport: " + text);
+      console.log(e.stack);
       console.log(e);
       process.exit(1);
     }
@@ -51,6 +55,7 @@ if (cluster.isMaster) {
     destinationConn.pipe(sourceConn);
   });
 
+  server.on("error", errorHandler("Source Server Error"));
   server.listen(sourcePort, function(){
     console.log("Mapping " + sourcePort + " --> " + destinationHost + ":" + destinationPort);
   });
