@@ -26,8 +26,7 @@ if (cluster.isMaster) {
     return function(e) {
       console.log("mapport: " + text);
       console.log(e.stack);
-      console.log(e);
-      process.exit(1);
+      // process.exit(1);
     }
   }
 
