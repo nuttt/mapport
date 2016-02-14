@@ -54,7 +54,13 @@ if (cluster.isMaster) {
     destinationConn.pipe(sourceConn);
   });
 
-  server.on("error", errorHandler("Source Server Error"));
+  server.on('error', (e) => {
+    if (e.code == 'EACCES') {
+        console.log("Non-privileged user (not root) can't open a listening socket on ports below 1024.");
+    }else{
+        console.log("Source Server Error");
+    }
+  });
   server.listen(sourcePort, function(){
     console.log("Mapping " + sourcePort + " --> " + destinationHost + ":" + destinationPort);
   });
